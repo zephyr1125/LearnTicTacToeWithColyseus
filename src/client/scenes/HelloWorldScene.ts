@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import * as Colyseus from 'colyseus.js'
+import e from 'express'
 
 export default class HelloWorldScene extends Phaser.Scene {
     private static readonly KEY: string = 'helloworld'
@@ -20,5 +21,13 @@ export default class HelloWorldScene extends Phaser.Scene {
     async create() {
         const room = await this.client?.joinOrCreate('helloworld-room')
         console.log('joined room', room?.name)
+
+        room?.onMessage('message', (message: any) => {
+            console.log('received message:', message.message)
+        })
+
+        this.input.keyboard.on('keydown', (event: KeyboardEvent) => {
+            room?.send('message', { message: event.key })
+        })
     }
 }

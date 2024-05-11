@@ -16,7 +16,13 @@ export class HelloWorldRoom extends Room {
 
     onCreate() {
         this.setState(new HelloWorldRoomState())
-
+        this.onMessage('message', (client: Client, message: any) => {
+            console.log(`Player ${client.sessionId} sent message:`, message)
+            this.broadcast(
+                'message',
+                { sessionId: client.sessionId, message: message}
+            )
+        })
     }
 
     async onJoin(client: Client, options: any, auth: any) {
