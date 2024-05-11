@@ -1,18 +1,38 @@
-import Phaser from 'phaser';
-import HelloWorldScene from './scenes/HelloWorldScene';
+import 'regenerator-runtime/runtime'
+import Phaser from 'phaser'
+
+import LocalMultiplayerMatterGameScene from './scenes/LocalMultiplayerMatterGameScene'
+import SinglePlayerArcadeGameScene from './scenes/SinglePlayerArcadeGameScene'
+import MatterTestScene from './scenes/MatterTestScene'
+import TextOverlay from './ui/overlays/TextOverlay'
+import BootstrapScene from './scenes/BoostrapScene'
+import GameScene from './scenes/GameScene'
+import MenuScene from './scenes/MenuScene'
+
+export const DEBUG_MODE: boolean = true
 
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: 960,
+    height: 640,
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { x: 0, y: 300 },
-            debug: true
+            gravity: {
+                y: 300
+            },
+            debug: DEBUG_MODE
         }
     },
-    scene: [HelloWorldScene]
-};
+    scene: [
+        BootstrapScene,
+        MenuScene,
+        GameScene,
+        SinglePlayerArcadeGameScene,
+        LocalMultiplayerMatterGameScene,
+        TextOverlay,
+        MatterTestScene
+    ]
+}
 
-export default new Phaser.Game(config);
+export default new Phaser.Game(config)

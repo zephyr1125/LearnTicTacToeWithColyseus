@@ -1,45 +1,6 @@
-# Node.js相关
-node_modules/
-npm-debug.log
-yarn-error.log
-
-# 编辑器设置和备份文件
-*.sublime*
-*.swp
-*.swo
-*~
+/.cache
+/dist
+/node_modules
 .DS_Store
 
-# 构建输出
-/dist/
-/build/
-/out/
-*.log
-
-# 环境配置文件
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# IDE或编辑器文件夹
-.idea/
-.vscode/
-*.code-workspace
-
-# 操作系统生成的文件
-Thumbs.db
-Desktop.ini
-
-# 依赖报告
-yarn.lock
-package-lock.json
-pnpm-lock.yaml
-
-# 日志文件
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+/.idea
