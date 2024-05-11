@@ -5,6 +5,7 @@ import express from 'express'
 import cors from 'cors'
 
 import { GameRoom } from './rooms/GameRoom'
+import { HelloWorldRoom } from './rooms/HelloWorldRoom'
 
 const port = Number(process.env.port) || 3000
 
@@ -17,7 +18,7 @@ const gameServer = new Server({
     server: createServer(app)
 })
 
-gameServer.define('game-room', GameRoom)
+gameServer.define('helloworld-room', HelloWorldRoom)
 
 app.use('/monitor', monitor())
 

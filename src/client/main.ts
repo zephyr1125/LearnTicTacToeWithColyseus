@@ -8,6 +8,7 @@ import TextOverlay from './ui/overlays/TextOverlay'
 import BootstrapScene from './scenes/BoostrapScene'
 import GameScene from './scenes/GameScene'
 import MenuScene from './scenes/MenuScene'
+import HelloWorldScene from './scenes/HelloWorldScene'
 
 export const DEBUG_MODE: boolean = true
 
@@ -25,6 +26,7 @@ const config: Phaser.Types.Core.GameConfig = {
         }
     },
     scene: [
+        HelloWorldScene,
         BootstrapScene,
         MenuScene,
         GameScene,
