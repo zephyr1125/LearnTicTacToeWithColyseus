@@ -9,23 +9,27 @@ import BootstrapScene from './scenes/BoostrapScene'
 import GameScene from './scenes/GameScene'
 import MenuScene from './scenes/MenuScene'
 import SimpleJoinRoomScene from './scenes/HelloWorldScene'
+import DungeonCrawlerScene from './scenes/DungeonCrawlerScene'
+import PreloaderScene from './scenes/PreloaderScene'
 
 export const DEBUG_MODE: boolean = true
 
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
-    width: 960,
-    height: 640,
+    width: 240,
+    height: 320,
     physics: {
         default: 'arcade',
         arcade: {
             gravity: {
-                y: 300
+                y: 0
             },
             debug: DEBUG_MODE
         }
     },
     scene: [
+        PreloaderScene,
+        DungeonCrawlerScene,
         SimpleJoinRoomScene,
         BootstrapScene,
         MenuScene,
@@ -34,7 +38,10 @@ const config: Phaser.Types.Core.GameConfig = {
         LocalMultiplayerMatterGameScene,
         TextOverlay,
         MatterTestScene
-    ]
+    ],
+    scale: {
+        zoom: 4
+    }
 }
 
 export default new Phaser.Game(config)
