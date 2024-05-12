@@ -2,13 +2,13 @@ import Phaser from 'phaser'
 import * as Colyseus from 'colyseus.js'
 import e from 'express'
 
-export default class HelloWorldScene extends Phaser.Scene {
+export default class SimpleJoinRoomScene extends Phaser.Scene {
     private static readonly KEY: string = 'helloworld'
 
     private client?: Colyseus.Client
 
     constructor() {
-        super(HelloWorldScene.KEY)
+        super(SimpleJoinRoomScene.KEY)
     }
 
     init(): void {
