@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import { debugDraw } from '../utils/debug'
 
 export default class DungeonCrawlerScene extends Phaser.Scene {
     private static readonly KEY: string = 'dungeon-crawler'
@@ -18,20 +19,15 @@ export default class DungeonCrawlerScene extends Phaser.Scene {
     create(): void {
         //map
         const map = this.make.tilemap({ key: 'dungeon' })
-        const tilesetFloor = map.addTilesetImage('dungeon_floor', 'tiles_floor')
-        const tilesetWall = map.addTilesetImage('atlas_walls_low-16x16', 'tiles_wall')
+        const tilesetFloor = map.addTilesetImage('dungeon_floor', 'tiles_floor', 16, 16, 1, 2)
+        const tilesetWall = map.addTilesetImage('atlas_walls_low-16x16', 'tiles_wall', 16, 16, 1, 2)
 
         const floorLayer = map.createLayer('floor', tilesetFloor)
         const wallLayer = map.createLayer('walls', tilesetWall)
 
         wallLayer.setCollisionByProperty({ collides: true })
 
-        // const debugGraphics = this.add.graphics().setAlpha(0.75)
-        // wallLayer.renderDebug(debugGraphics, {
-        //     tileColor: null,
-        //     collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
-        //     faceColor: new Phaser.Display.Color(40, 39, 37, 255)
-        // })
+        // debugDraw(this, wallLayer)
 
         //player
         this.player = this.physics.add.sprite(8+16*2, 8+16*2+2, 'knight')
@@ -54,6 +50,9 @@ export default class DungeonCrawlerScene extends Phaser.Scene {
         this.player.setSize(8, 8).setOffset(4, 21)
         //设置碰撞
         this.physics.add.collider(this.player, wallLayer)
+
+        //摄像机跟随
+        this.cameras.main.startFollow(this.player)
     }
 
     update(): void {
