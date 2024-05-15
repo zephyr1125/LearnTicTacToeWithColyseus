@@ -8,9 +8,7 @@ export default class DungeonCrawlerScene extends Phaser.Scene {
     private static readonly KEY: string = 'dungeon-crawler'
 
     private cursorKeys?: Phaser.Types.Input.Keyboard.CursorKeys
-    private player?: Phaser.Physics.Arcade.Sprite
-
-    private hit = 0
+    private player?: Knight
 
     constructor()
     {
@@ -64,7 +62,6 @@ export default class DungeonCrawlerScene extends Phaser.Scene {
 
     handlePlayerCollideWithZombie(
         obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject) : void {
-        //将player反弹
         if(this.player === undefined){
             return
         }
@@ -73,20 +70,12 @@ export default class DungeonCrawlerScene extends Phaser.Scene {
         const dx = this.player.x - zombie.x
         const dy = this.player.y - zombie.y
         const dir = new Phaser.Math.Vector2(dx, dy).normalize().scale(100)
-        this.player.setVelocity(dir.x, dir.y)
-        this.hit = 1
+        this.player.handleDamage(dir)
     }
 
     update(): void {
-        if(this.hit > 0){
-            ++this.hit
-            if(this.hit > 15){
-                this.hit = 0
-            }
-            return
-        } 
 
-        if(this.player){
+        if(this.player && this.cursorKeys){
             this.player.update(this.cursorKeys)
         }
     }
