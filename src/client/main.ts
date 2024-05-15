@@ -11,6 +11,7 @@ import MenuScene from './scenes/MenuScene'
 import SimpleJoinRoomScene from './scenes/HelloWorldScene'
 import DungeonCrawlerScene from './scenes/DungeonCrawlerScene'
 import PreloaderScene from './scenes/PreloaderScene'
+import './characters/Knight'
 
 export const DEBUG_MODE: boolean = true
 

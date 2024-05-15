@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import { debugDraw } from '../utils/debug'
 import { createKnightAnims, createBigZombieAnim } from '../anims/CharacterAnims'
+import Knight from '../characters/Knight'
 import BigZombie from '../characters/BigZombie'
 
 export default class DungeonCrawlerScene extends Phaser.Scene {
@@ -8,6 +9,8 @@ export default class DungeonCrawlerScene extends Phaser.Scene {
 
     private cursorKeys?: Phaser.Types.Input.Keyboard.CursorKeys
     private player?: Phaser.Physics.Arcade.Sprite
+
+    private hit = 0
 
     constructor()
     {
@@ -32,7 +35,12 @@ export default class DungeonCrawlerScene extends Phaser.Scene {
         // debugDraw(this, wallLayer)
 
         //player
-        this.player = this.createPlayer(wallLayer)
+        createKnightAnims(this.anims)
+        this.player = this.add.knight(8 + 16 * 2, 8 + 16 * 2 + 2)
+        //设置碰撞
+        this.physics.add.collider(this.player, wallLayer)
+        //摄像机跟随
+        this.cameras.main.startFollow(this.player)
 
         //big zombie
         createBigZombieAnim(this.anims)
@@ -48,58 +56,38 @@ export default class DungeonCrawlerScene extends Phaser.Scene {
         this.physics.add.collider(zombies, wallLayer)
         zombies.get(8 + 16 * 3, 8 + 16 * 5 + 2)
         zombies.get(8 + 16 * 5, 8 + 16 * 5 + 2)
+
+        //设置玩家与怪物相撞
+        this.physics.add.collider(zombies, this.player,
+             this.handlePlayerCollideWithZombie, undefined, this)   //必须提供上下文this，否则函数内的this概念不同
     }
 
-    private createPlayer(wallLayer: Phaser.Tilemaps.TilemapLayer) {
-        var player = this.physics.add.sprite(8 + 16 * 2, 8 + 16 * 2 + 2, 'knight')
-        createKnightAnims(this.anims)
-        player.play('player_idle')
-        //角色碰撞框设置为一格
-        player.setSize(8, 8).setOffset(4, 21)
-        //设置碰撞
-        this.physics.add.collider(player, wallLayer)
-
-        //摄像机跟随
-        this.cameras.main.startFollow(player)
-
-        return player
+    handlePlayerCollideWithZombie(
+        obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject) : void {
+        //将player反弹
+        if(this.player === undefined){
+            return
+        }
+        console.log('player collide with zombie');
+        const zombie = obj2 as BigZombie
+        const dx = this.player.x - zombie.x
+        const dy = this.player.y - zombie.y
+        const dir = new Phaser.Math.Vector2(dx, dy).normalize().scale(100)
+        this.player.setVelocity(dir.x, dir.y)
+        this.hit = 1
     }
 
     update(): void {
-        if (!this.cursorKeys || !this.player) {
-            return
-        }
-
-        const speed = 100
-        const prevVelocity = this.player.body.velocity.clone()
-
-        this.player.setVelocity(0)
-
-        if (this.cursorKeys.left?.isDown) {
-            this.player.setVelocityX(-speed)
-        } else if (this.cursorKeys.right?.isDown) {
-            this.player.setVelocityX(speed)
-        }
-
-        if (this.cursorKeys.up?.isDown) {
-            this.player.setVelocityY(-speed)
-        } else if (this.cursorKeys.down?.isDown) {
-            this.player.setVelocityY(speed)
-        }
-
-        this.player.body.velocity.normalize().scale(speed)
-
-        if (this.cursorKeys.left?.isDown || this.cursorKeys.right?.isDown ||
-             this.cursorKeys.up?.isDown || this.cursorKeys.down?.isDown) {
-            this.player.play('player_run', true)
-            //左侧需要镜像
-            if (this.cursorKeys.left?.isDown || this.cursorKeys.up?.isDown) {
-                this.player.setFlipX(true)
-            } else {
-                this.player.setFlipX(false)
+        if(this.hit > 0){
+            ++this.hit
+            if(this.hit > 15){
+                this.hit = 0
             }
-        } else {
-            this.player.play('player_idle', true)
+            return
+        } 
+
+        if(this.player){
+            this.player.update(this.cursorKeys)
         }
     }
 }
