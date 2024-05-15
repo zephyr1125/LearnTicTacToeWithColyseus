@@ -3,6 +3,7 @@ import { debugDraw } from '../utils/debug'
 import { createKnightAnims, createBigZombieAnim } from '../anims/CharacterAnims'
 import Knight from '../characters/Knight'
 import BigZombie from '../characters/BigZombie'
+import { sceneEvents } from '../events/EventsCenter'
 
 export default class DungeonCrawlerScene extends Phaser.Scene {
     private static readonly KEY: string = 'dungeon-crawler'
@@ -20,6 +21,8 @@ export default class DungeonCrawlerScene extends Phaser.Scene {
     }
 
     create(): void {
+        this.scene.run('game-ui')
+
         //map
         const map = this.make.tilemap({ key: 'dungeon' })
         const tilesetFloor = map.addTilesetImage('dungeon_floor', 'tiles_floor', 16, 16, 1, 2)
@@ -71,6 +74,7 @@ export default class DungeonCrawlerScene extends Phaser.Scene {
         const dy = this.player.y - zombie.y
         const dir = new Phaser.Math.Vector2(dx, dy).normalize().scale(100)
         this.player.handleDamage(dir)
+        sceneEvents.emit('player-health-changed', this.player.health)
     }
 
     update(): void {

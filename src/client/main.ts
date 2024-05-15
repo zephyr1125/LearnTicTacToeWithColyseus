@@ -11,6 +11,7 @@ import MenuScene from './scenes/MenuScene'
 import SimpleJoinRoomScene from './scenes/HelloWorldScene'
 import DungeonCrawlerScene from './scenes/DungeonCrawlerScene'
 import PreloaderScene from './scenes/PreloaderScene'
+import GameUI from './scenes/GameUI'
 import './characters/Knight'
 
 export const DEBUG_MODE: boolean = true
@@ -31,14 +32,15 @@ const config: Phaser.Types.Core.GameConfig = {
     scene: [
         PreloaderScene,
         DungeonCrawlerScene,
-        SimpleJoinRoomScene,
-        BootstrapScene,
-        MenuScene,
-        GameScene,
-        SinglePlayerArcadeGameScene,
-        LocalMultiplayerMatterGameScene,
-        TextOverlay,
-        MatterTestScene
+        GameUI,
+        // SimpleJoinRoomScene,
+        // BootstrapScene,
+        // MenuScene,
+        // GameScene,
+        // SinglePlayerArcadeGameScene,
+        // LocalMultiplayerMatterGameScene,
+        // TextOverlay,
+        // MatterTestScene
     ],
     scale: {
         zoom: 4

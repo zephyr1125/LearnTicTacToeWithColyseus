@@ -15,6 +15,9 @@ export default class PreloaderScene extends Phaser.Scene {
 
         this.load.atlas('knight', 'sprites/knight.png', 'sprites/knight.json')
         this.load.atlas('big_zombie', 'sprites/big_zombie.png', 'sprites/big_zombie.json')
+
+        this.load.image('ui-heart-empty', 'ui/ui_heart_empty.png')
+        this.load.image('ui-heart-full', 'ui/ui_heart_full.png')
     }
 
     create(): void {
