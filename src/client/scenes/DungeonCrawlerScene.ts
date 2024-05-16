@@ -61,6 +61,19 @@ export default class DungeonCrawlerScene extends Phaser.Scene {
         //设置玩家与怪物相撞
         this.physics.add.collider(zombies, this.player,
              this.handlePlayerCollideWithZombie, undefined, this)   //必须提供上下文this，否则函数内的this概念不同
+
+        //knives
+        const knives = this.physics.add.group({
+            classType: Phaser.Physics.Arcade.Image
+        })
+        this.physics.add.collider(knives, wallLayer, (knife) => {
+            knife.destroy()
+        })
+        this.physics.add.collider(knives, zombies, (knife, zombie) => {
+            knife.destroy()
+            zombie.destroy()
+        })
+        this.player.setKnives(knives)
     }
 
     handlePlayerCollideWithZombie(

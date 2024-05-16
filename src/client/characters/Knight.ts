@@ -24,6 +24,8 @@ export default class Knight extends Phaser.Physics.Arcade.Sprite
     private _damageTime = 0
     private _health = 3
 
+    private _knives?: Phaser.Physics.Arcade.Group
+
     get health(): number
     {
         return this._health
@@ -32,6 +34,20 @@ export default class Knight extends Phaser.Physics.Arcade.Sprite
     constructor(scene: Phaser.Scene, x: number, y: number){
         super(scene, x, y, 'knight')
         this.play('knight_idle')
+    }
+
+    setKnives(knives: Phaser.Physics.Arcade.Group): void {
+        this._knives = knives
+        this.scene.input.on('pointerdown', (pointer) => {
+            const knife = knives.get(this.x, this.y, 'weapon_knife') as Phaser.Physics.Arcade.Image
+            if (!knife) {
+                return
+            }
+            const vec = new Phaser.Math.Vector2(pointer.x - this.x, pointer.y - this.y).normalize().scale(200)
+            knife.setActive(true)
+                .setVisible(true)
+                .setVelocity(vec.x, vec.y)
+        })
     }
 
     handleDamage(dir: Phaser.Math.Vector2): void {
@@ -57,16 +73,18 @@ export default class Knight extends Phaser.Physics.Arcade.Sprite
         this._healthState = HealthState.DEAD
         //转为鬼魂
         //逐渐上升
-        this.setVelocity(0, -20)
+        this.setVelocity(0, -16)
+        //动画停止播放
+        this.anims.stop()
         //alpha渐变到0
         this.scene.tweens.add({
             targets: this,
             alpha: 0,
-            velocityX: 0,
-            velocityY: 0,
-            duration: 3000,
+            duration: 2000,
             ease: 'Power2'
         }).on(Phaser.Tweens.Events.TWEEN_COMPLETE, () => {
+            this.setVelocity(0, 0)
+            
             //关卡重开
             // this.scene.scene.restart()
         })
