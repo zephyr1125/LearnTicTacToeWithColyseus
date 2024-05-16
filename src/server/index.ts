@@ -6,6 +6,8 @@ import cors from 'cors'
 
 import { GameRoom } from './rooms/GameRoom'
 import { HelloWorldRoom } from './rooms/HelloWorldRoom'
+import TicTacToeRoom from './rooms/TicTacToeRoom'
+import { TicTacToeRomeName } from '../shared/constants'
 
 const port = Number(process.env.port) || 3000
 
@@ -19,6 +21,7 @@ const gameServer = new Server({
 })
 
 gameServer.define('helloworld-room', HelloWorldRoom)
+gameServer.define(TicTacToeRomeName, TicTacToeRoom)
 
 app.use('/monitor', monitor())
 

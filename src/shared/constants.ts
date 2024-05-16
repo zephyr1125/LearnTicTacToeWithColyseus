@@ -23,3 +23,5 @@ export const PLAYER_CONFIG: IPlayerConfig[] = [
         color: 0x6666ff
     }
 ]
+
+export const TicTacToeRomeName = 'tic-tac-toe'

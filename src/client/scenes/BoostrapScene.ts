@@ -2,11 +2,15 @@ import Phaser from 'phaser'
 
 import MenuScene from '../../client/scenes/MenuScene'
 import Assets from '../assets/Assets'
+import TTTGameScene from './TTTGameScene'
+import Server from '../services/Server'
 
 export default class BoostrapScene extends Phaser.Scene {
     private static readonly KEY: string = 'bootstrap'
 
     private assets: Assets
+
+    private server?: Server
 
     constructor() {
         super(BoostrapScene.KEY)
@@ -14,7 +18,7 @@ export default class BoostrapScene extends Phaser.Scene {
     }
 
     init(): void {
-
+        this.server = new Server()
     }
 
     preload(): void {
@@ -22,6 +26,8 @@ export default class BoostrapScene extends Phaser.Scene {
     }
 
     create(): void {
-        this.scene.launch(MenuScene.KEY)
+        this.scene.launch(TTTGameScene.KEY, {
+            server: this.server
+        })
     }
 }
