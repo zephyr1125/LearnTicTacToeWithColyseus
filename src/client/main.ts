@@ -19,8 +19,8 @@ export const DEBUG_MODE: boolean = true
 
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
-    width: 240,
-    height: 320,
+    width: 480,
+    height: 480,
     physics: {
         default: 'arcade',
         arcade: {
@@ -45,7 +45,7 @@ const config: Phaser.Types.Core.GameConfig = {
         // MatterTestScene
     ],
     scale: {
-        zoom: 4
+        zoom: 1
     }
 }
 

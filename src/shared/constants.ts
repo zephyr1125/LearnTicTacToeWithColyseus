@@ -25,3 +25,5 @@ export const PLAYER_CONFIG: IPlayerConfig[] = [
 ]
 
 export const TicTacToeRomeName = 'tic-tac-toe'
+export const EventRoomStateChange = 'room-state-change'
+export const EventBoardUpdate = 'board-update'
