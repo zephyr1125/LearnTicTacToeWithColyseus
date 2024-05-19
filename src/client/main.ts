@@ -19,8 +19,8 @@ export const DEBUG_MODE: boolean = true
 
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
-    width: 480,
-    height: 480,
+    width: 320,
+    height: 240,
     physics: {
         default: 'arcade',
         arcade: {
@@ -32,11 +32,11 @@ const config: Phaser.Types.Core.GameConfig = {
     },
     scene: [
         // SimpleJoinRoomScene,  //一个简单的联网进入房间
-        // PreloaderScene,      //学习DungeonCrawler
-        // DungeonCrawlerScene, //学习DungeonCrawler
-        // GameUI,              //学习DungeonCrawler
-        BootstrapScene,         //学习在线TicTocToe
-        TTTGameScene,           //学习在线TicTocToe
+        PreloaderScene,      //学习DungeonCrawler
+        DungeonCrawlerScene, //学习DungeonCrawler
+        GameUI,              //学习DungeonCrawler
+        // BootstrapScene,         //学习在线TicTocToe
+        // TTTGameScene,           //学习在线TicTocToe
         // MenuScene,
         // GameScene,
         // SinglePlayerArcadeGameScene,
@@ -45,7 +45,7 @@ const config: Phaser.Types.Core.GameConfig = {
         // MatterTestScene
     ],
     scale: {
-        zoom: 1
+        zoom: 4
     }
 }
 
