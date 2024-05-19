@@ -21,6 +21,7 @@ const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
     width: 320,
     height: 240,
+    pixelArt: true,
     physics: {
         default: 'arcade',
         arcade: {

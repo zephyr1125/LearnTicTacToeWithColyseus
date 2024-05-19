@@ -14,10 +14,12 @@ export default class DungeonCrawlerScene extends Phaser.Scene {
     constructor()
     {
         super(DungeonCrawlerScene.KEY)
+
     }
 
     preload(): void {
         this.cursorKeys = this.input.keyboard.createCursorKeys()   
+        this.load.bitmapFont('zpix', 'assets/zpix_0.png', 'assets/zpix.fnt');
     }
 
     create(): void {
@@ -74,6 +76,8 @@ export default class DungeonCrawlerScene extends Phaser.Scene {
             zombie.destroy()
         })
         this.player.setKnives(knives)
+
+        this.add.bitmapText(0, 0, "zpix", "排行榜！")
     }
 
     handlePlayerCollideWithZombie(
