@@ -45,7 +45,8 @@
 		"matter-js": "^0.18.0",
 		"phaser": "^3.55.2",
 		"regenerator": "^0.14.7",
-		"regenerator-runtime": "^0.13.9"
+		"regenerator-runtime": "^0.13.9",
+		"parcel-bundler": "^1.12.4"
 	},
 	"parcelCleanPaths": [
 		"dist"
