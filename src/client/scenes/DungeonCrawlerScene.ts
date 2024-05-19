@@ -78,7 +78,7 @@ export default class DungeonCrawlerScene extends Phaser.Scene {
         this.player.setKnives(knives)
 
         let text = this.add.bitmapText(0, 0, "zpix", "排行榜！")
-        text.tint = 0xffffff
+        text.tint = 0x00ff00
     }
 
     handlePlayerCollideWithZombie(
